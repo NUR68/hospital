@@ -11,55 +11,55 @@ namespace HospitalApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class DoctorController : ControllerBase
+    public class PatientController : ControllerBase
     {
         private readonly db_hospitalContext _context;
 
-        public DoctorController()
+        public PatientController()
         {
             _context = new db_hospitalContext();
         }
 
-        // GET: api/Doctor
+        // GET: api/Patient
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<TbDoctor>>> GetTbDoctors()
+        public async Task<ActionResult<IEnumerable<TbPatient>>> GetTbPatients()
         {
-          if (_context.TbDoctors == null)
+          if (_context.TbPatients == null)
           {
               return NotFound();
           }
-            return await _context.TbDoctors.ToListAsync();
+            return await _context.TbPatients.ToListAsync();
         }
 
-        // GET: api/Doctor/5
+        // GET: api/Patient/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<TbDoctor>> GetTbDoctor(int id)
+        public async Task<ActionResult<TbPatient>> GetTbPatient(int id)
         {
-          if (_context.TbDoctors == null)
+          if (_context.TbPatients == null)
           {
               return NotFound();
           }
-            var tbDoctor = await _context.TbDoctors.FindAsync(id);
+            var tbPatient = await _context.TbPatients.FindAsync(id);
 
-            if (tbDoctor == null)
+            if (tbPatient == null)
             {
                 return NotFound();
             }
 
-            return tbDoctor;
+            return tbPatient;
         }
 
-        // PUT: api/Doctor/5
+        // PUT: api/Patient/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutTbDoctor(int id, TbDoctor tbDoctor)
+        public async Task<IActionResult> PutTbPatient(int id, TbPatient tbPatient)
         {
-            if (id != tbDoctor.DoctorsId)
+            if (id != tbPatient.PatientId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(tbDoctor).State = EntityState.Modified;
+            _context.Entry(tbPatient).State = EntityState.Modified;
 
             try
             {
@@ -67,7 +67,7 @@ namespace HospitalApi.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!TbDoctorExists(id))
+                if (!TbPatientExists(id))
                 {
                     return NotFound();
                 }
@@ -80,44 +80,44 @@ namespace HospitalApi.Controllers
             return NoContent();
         }
 
-        // POST: api/Doctor
+        // POST: api/Patient
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<TbDoctor>> PostTbDoctor(TbDoctor tbDoctor)
+        public async Task<ActionResult<TbPatient>> PostTbPatient(TbPatient tbPatient)
         {
-          if (_context.TbDoctors == null)
+          if (_context.TbPatients == null)
           {
-              return Problem("Entity set 'db_hospitalContext.TbDoctors'  is null.");
+              return Problem("Entity set 'db_hospitalContext.TbPatients'  is null.");
           }
-            _context.TbDoctors.Add(tbDoctor);
+            _context.TbPatients.Add(tbPatient);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetTbDoctor", new { id = tbDoctor.DoctorsId }, tbDoctor);
+            return CreatedAtAction("GetTbPatient", new { id = tbPatient.PatientId }, tbPatient);
         }
 
-        // DELETE: api/Doctor/5
+        // DELETE: api/Patient/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteTbDoctor(int id)
+        public async Task<IActionResult> DeleteTbPatient(int id)
         {
-            if (_context.TbDoctors == null)
+            if (_context.TbPatients == null)
             {
                 return NotFound();
             }
-            var tbDoctor = await _context.TbDoctors.FindAsync(id);
-            if (tbDoctor == null)
+            var tbPatient = await _context.TbPatients.FindAsync(id);
+            if (tbPatient == null)
             {
                 return NotFound();
             }
 
-            _context.TbDoctors.Remove(tbDoctor);
+            _context.TbPatients.Remove(tbPatient);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool TbDoctorExists(int id)
+        private bool TbPatientExists(int id)
         {
-            return (_context.TbDoctors?.Any(e => e.DoctorsId == id)).GetValueOrDefault();
+            return (_context.TbPatients?.Any(e => e.PatientId == id)).GetValueOrDefault();
         }
     }
 }
